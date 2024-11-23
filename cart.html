@@ -6,6 +6,8 @@
     <title>Shopping Cart</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for delete icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -30,28 +32,39 @@
             cartList.innerHTML = ''; // Clear previous items
 
             // Display each item in the cart
-            cart.forEach(item => {
+            cart.forEach((item, index) => {
                 const cartItem = document.createElement('div');
-                cartItem.classList.add('col-12', 'col-md-4');
+                cartItem.classList.add('col-12', 'd-flex', 'align-items-center', 'mb-3');
                 cartItem.innerHTML = `
-                    <div class="card">
-                        <img src="${item.image}" class="card-img-top" alt="${item.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${item.name}</h5>
-                            <p class="card-text">${item.description}</p>
-                            <p class="price">$${item.price.toFixed(2)}</p>
+                    <div class="d-flex justify-content-between w-100">
+                        <div class="d-flex align-items-center">
+                            <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;" class="me-3">
+                            <span class="me-3">${item.name}</span>
+                            <span class="price">$${item.price.toFixed(2)}</span>
                         </div>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </div>
                 `;
                 cartList.appendChild(cartItem);
             });
         }
 
-        // Checkout function (add your checkout logic here)
-        function checkout() {
-            alert('Proceeding to checkout...');
-            // Add your checkout process here, like redirecting to a checkout page
+        // Delete item from cart
+        function deleteItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1); // Remove item at index
+            localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+            loadCart(); // Reload cart
         }
+
+// Checkout function (add your checkout logic here)
+function checkout() {
+    alert('Proceeding to checkout...');
+    // Correctly redirect to the payment page
+    window.location.href = 'payment.html';
+}
 
         // Load the cart on page load
         window.onload = function() {
