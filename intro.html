@@ -1,0 +1,168 @@
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Natural Meds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url("/images (20).jpeg") no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 90%;
+            padding: 20px;
+        }
+
+        .heading {
+            font-size: 5vw;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: inline-block;
+            border-right: 3px solid rgba(255, 255, 255, 0.75);
+            animation: blink 0.75s step-end infinite;
+            word-wrap: break-word;
+        }
+
+        .sub-heading {
+            font-size: 4vw;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 2s 6s forwards;
+        }
+
+        .cta-button {
+            margin-top: 30px;
+            padding: 2rem;
+            font-size: 1.2rem;
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: buttonSlideIn 3s 6s forwards;
+        }
+
+        .cta-button:hover {
+            background-color: #FF4500;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        @keyframes buttonSlideIn {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .heading {
+                font-size: 6vw;
+            }
+
+            .sub-heading {
+                font-size: 5vw;
+            }
+
+            .cta-button {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading {
+                font-size: 7vw;
+            }
+
+            .sub-heading {
+                font-size: 5.5vw;
+            }
+
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="heading" id="typing-effect"></div>
+        <div class="sub-heading" id="sub-heading"></div>
+        <button class="cta-button" onclick="window.location.href='#';">Start Your Journey</button>
+    </div>
+
+    <script>
+        // Typing effect: Character-by-character animation
+        const headingText = "Welcome to Natural Meds by Dandovan Hannah";
+        const headingElement = document.getElementById('typing-effect');
+        let headingIndex = 0;
+
+        function typeHeadingText() {
+            if (headingIndex < headingText.length) {
+                headingElement.innerHTML += headingText.charAt(headingIndex);
+                headingIndex++;
+                setTimeout(typeHeadingText, 100); // Delay between characters
+            }
+        }
+
+        // Typing effect for the sub-heading
+        const subHeadingText = "Your one step away to good health";
+        const subHeadingElement = document.getElementById('sub-heading');
+        let subHeadingIndex = 0;
+
+        function typeSubHeadingText() {
+            if (subHeadingIndex < subHeadingText.length) {
+                subHeadingElement.innerHTML += subHeadingText.charAt(subHeadingIndex);
+                subHeadingIndex++;
+                setTimeout(typeSubHeadingText, 100);
+            }
+        }
+
+        // Start the typing effects
+        window.onload = function () {
+            typeHeadingText(); // Start typing for the heading
+            setTimeout(typeSubHeadingText, headingText.length * 100 + 500); // Delay for sub-heading
+        };
+    </script>
+
+</body>
+</html>
