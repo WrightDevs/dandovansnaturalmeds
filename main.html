@@ -1,116 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="google-adsense-account" content="ca-pub-3299290242514836">
-    <title>Natural meds by Dandovan Hannah</title>
+    <title>Natural Meds by Dandovan Hannah</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- External Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <!-- Internal CSS -->
     <style>
         body {
-            background-color: #f1f1f1;
-            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(to right, #ffffff, #e0ffe0);
+            font-family: 'Poppins', sans-serif;
             color: #333;
         }
-        .card-img-top {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
+
         .navbar {
-            background-color: #4CAF50;
+            background-color: #28a745;
+            padding: 1rem;
         }
 
         .navbar-brand {
-            font-weight: bold;
-        }
-
-        .navbar-nav {
-            margin-left: auto;
-        }
-
-        .cart-icon {
-            font-size: 1.5em;
-            color: white;
-            cursor: pointer;
-        }
-
-        .price {
-            font-size: 1.4em;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .product-name {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .pay-btn {
-            background-color: #007bff;
+            font-size: 1.8rem;
             color: white;
         }
 
-        .pay-btn:hover {
-            background-color: #0056b3;
-        }
-
-        #paymentOptions {
-            display: none;
-            margin-top: 40px;
-        }
-
-        .disabled-btn {
-            background-color: #dcdcdc;
-            cursor: not-allowed;
-        }
-
-        .disabled-btn:hover {
-            background-color: #dcdcdc;
+        .navbar-nav .nav-link {
+            color: white;
+            font-size: 1.2rem;
         }
 
         .container {
             margin-top: 50px;
         }
 
-        .social-link {
-            display: block;
-            margin-top: 30px;
-            text-align: center;
-            font-size: 1.1em;
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            text-decoration: underline;
+        h2 {
+            color: #444;
+            font-weight: bold;
         }
 
         .card {
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
             transform: translateY(-10px);
+            box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            border-radius: 15px 15px 0 0;
+            object-fit: cover;
+            height: 180px;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .price {
+            font-size: 1.6rem;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .pay-btn {
+            background-color: #007bff;
+            color: white;
+            font-size: 1rem;
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .pay-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .quantity-selector {
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .cart-icon {
+            font-size: 1.8rem;
+            color: white;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">Drug Store</a>
+            <a class="navbar-brand" href="#">Natural Meds</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="cart.html" id="viewCartBtn">
@@ -120,92 +120,88 @@
             </ul>
         </div>
     </nav>
+
     <!-- Product List -->
     <div class="container">
-        <h2 class="text-center mb-5">Drug Purchase</h2>
+        <h2 class="text-center mb-5">Exclusive Drug Purchase</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4" id="productList">
             <!-- Product Cards will be dynamically added here -->
         </div>
-        <p>Total Price: $<span id="totalPrice">0.00</span></p>
+        <p class="text-center mt-4">
+            <strong>Total Price:</strong> $<span id="totalPrice">0.00</span>
+        </p>
     </div>
+
     <!-- Bootstrap JS and Internal JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-      
-	
-  <script>
-	// Product Data for 20 Drugs
-    const products = [
-    { id: 1, name: "Capsule prep", price: 0.00, description: "A general-purpose supplement", image: "img1.jpg" },
-    { id: 2, name: "Drug capsule", price: 100.00, description: "Relieves inflammation and pain.", image: "img2.jpg" },
-    { id: 3, name: "Mushroom", price: 850.00, description: "May help treat mental health conditions.", image: "img3.jpg" },
-    { id: 4, name: "Lionemane capsule", price: 100.00, description: "Stimulates the growth of new brain cells.", image: "img4.jpg" },
-    { id: 5, name: "Golden teacher capsules", price: 100.00, description: "Used for introspection and spiritual experiences.", image: "img5.jpg" },
-    { id: 7, name: "Edibles", price: 30.00, description: "Used for medicinal purposes like pain relief.", image: "img7.jpg" },
-    { id: 8, name: "Chocolate Bars", price: 60.00, description: "Chocolate bars with therapeutic benefits.", image: "img8.jpg" },
-    { id: 9, name: "Reishi & Lion's mane", price: 100.00, description: "A powerful blend of immune-boosting benefits.", image: "img9.jpg" },
-    { id: 11, name: "Brain vitamin mushroom", price: 100.00, description: "A psilocybin microdosing supplement.", image: "img11.jpg" },
-    { id: 12, name: "Psychedelic mushrooms", price: 150.00, description: "Enhances creativity and spiritual experiences.", image: "img12.jpg" },
-];
+    <script>
+          const products = [
+            { id: 1, name: "Capsule prep", price: 0.00, description: "A general-purpose supplement", image: "img1.jpg" },
+            { id: 2, name: "Drug capsule", price: 100.00, description: "Relieves inflammation and pain.", image: "img2.jpg" },
+            { id: 3, name: "Mushroom", price: 850.00, description: "May help treat mental health conditions.", image: "img3.jpg" },
+            { id: 4, name: "Lionemane capsule", price: 100.00, description: "Stimulates the growth of new brain cells.", image: "img4.jpg" },
+            { id: 5, name: "Golden teacher capsules", price: 100.00, description: "Used for introspection and spiritual experiences.", image: "img5.jpg" },
+            { id: 7, name: "Edibles", price: 30.00, description: "Used for medicinal purposes like pain relief.", image: "img7.jpg" },
+            { id: 8, name: "Chocolate Bars", price: 60.00, description: "Chocolate bars with therapeutic benefits.", image: "img8.jpg" },
+            { id: 9, name: "Reishi & Lion's mane", price: 100.00, description: "A powerful blend of immune-boosting benefits.", image: "img9.jpg" },
+            { id: 11, name: "Brain vitamin mushroom", price: 100.00, description: "A psilocybin microdosing supplement.", image: "img11.jpg" },
+            { id: 12, name: "Psychedelic mushrooms", price: 150.00, description: "Enhances creativity and spiritual experiences.", image: "img12.jpg" },
+        ];
 
-    let cart = [];
+        let cart = [];
 
-    // Load Products Dynamically
-    function loadProducts() {
-        const productList = document.getElementById('productList');
-        products.forEach(product => {
-            const card = document.createElement('div');
-            card.classList.add('col');
-            card.innerHTML = `
-                <div class="card">
-                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
-                    <div class="card-body">
-                        <h5 class="product-name">${product.name}</h5>
-                        <p class="card-text">${product.description}</p>
-                        <p class="price">$${product.price.toFixed(2)}</p>
-                        <button class="btn pay-btn" data-id="${product.id}" data-price="${product.price}">Add to Cart</button>
+        function loadProducts() {
+            const productList = document.getElementById('productList');
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.classList.add('col');
+                card.innerHTML = `
+                    <div class="card">
+                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="product-name">${product.name}</h5>
+                            <p class="card-text">${product.description}</p>
+                            <p class="price">$${product.price.toFixed(2)}</p>
+                            <div class="d-flex align-items-center">
+                                <input type="number" class="quantity-selector form-control" data-id="${product.id}" min="1" value="1">
+                                <button class="btn pay-btn" data-id="${product.id}" data-price="${product.price}">Add to Cart</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            `;
-            productList.appendChild(card);
-        });
-    }
-
-// Add Product to Cart
-function addToCart(productId, price) {
-    const product = products.find(p => p.id === productId);
-    cart.push({ ...product, price });
-
-    // Store the updated cart in localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    updateCartCount();
-}
-
-    // Update Cart Count
-    function updateCartCount() {
-        document.getElementById('cartCount').innerText = cart.length;
-    }
-
-    // Update Total Price
-    function updateTotalPrice() {
-        const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
-        document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
-    }
-
-    // Add Event Listener to Add to Cart Buttons
-    document.getElementById('productList').addEventListener('click', function (e) {
-        if (e.target.classList.contains('pay-btn')) {
-            const productId = parseInt(e.target.getAttribute('data-id'));
-            const price = parseFloat(e.target.getAttribute('data-price'));
-            addToCart(productId, price);
+                `;
+                productList.appendChild(card);
+            });
         }
-    });
 
-    // Load the products when the page is ready
-    window.onload = function () {
-        loadProducts();
-    };
-</script>
-	
+        function addToCart(productId, price, quantity) {
+            const product = products.find(p => p.id === productId);
+            for (let i = 0; i < quantity; i++) {
+                cart.push({ ...product, price });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateTotalPrice();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cart.length;
+        }
+
+        function updateTotalPrice() {
+            const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+        }
+
+        document.getElementById('productList').addEventListener('click', function (e) {
+            if (e.target.classList.contains('pay-btn')) {
+                const productId = parseInt(e.target.getAttribute('data-id'));
+                const quantity = parseInt(e.target.previousElementSibling.value);
+                const price = parseFloat(e.target.getAttribute('data-price'));
+                addToCart(productId, price, quantity);
+            }
+        });
+
+        window.onload = loadProducts;
+    </script>
 </body>
 </html>
