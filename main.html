@@ -151,35 +151,38 @@
     
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
     
-      // Load products dynamically
-      function loadProducts() {
-        const productList = document.getElementById("productList");
-        products.forEach((product) => {
-          const card = document.createElement("div");
-          card.classList.add("col");
-          card.innerHTML = `
-                    <div class="card">
-                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
-                        <div class="card-body">
-                            <h5 class="product-name">${product.name}</h5>
-                            <p class="card-text">${product.description}</p>
-                            <p class="price">$${product.price.toFixed(2)}</p>
-                            <div class="d-flex align-items-center">
-                                <input type="number" class="quantity-selector form-control me-2" data-id="${product.id}" min="1" value="1">
-                                <button class="btn btn-primary add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
-                            </div>
+    // Load products dynamically
+    function loadProducts() {
+      const productList = document.getElementById("productList");
+      products.forEach((product) => {
+        const card = document.createElement("div");
+        card.classList.add("col");
+        card.innerHTML = `
+                <div class="card">
+                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="product-name">${product.name}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <p class="price">$${product.price.toFixed(2)}</p>
+                        <div class="d-flex align-items-center">
+                            <input type="number" class="quantity-selector form-control me-2" data-id="${product.id}" min="1" value="1">
+                            <button class="btn btn-primary add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                        </div>
+                        <div class="text-center mt-2 d-none">
+                            <button class="btn btn-success proceed-to-checkout-btn" data-id="${product.id}">Proceed to Checkout</button>
                         </div>
                     </div>
-                `;
-          productList.appendChild(card);
-        });
-      }
+                </div>
+            `;
+        productList.appendChild(card);
+      });
+    }
     
-      // Add item to the cart
-      function addToCart(productId, quantity) {
+   // Add item to the cart
+      function addToCart(productId, quantity, buttonElement) {
         const product = products.find((p) => p.id === productId);
         const existingProduct = cart.find((item) => item.id === productId);
-    
+      
         if (existingProduct) {
           existingProduct.quantity += quantity;
         } else {
@@ -191,36 +194,72 @@
             quantity: quantity,
           });
         }
-    
+      
         localStorage.setItem("cart", JSON.stringify(cart));
         updateCartUI();
+      
+        // Change the button to "Proceed to Cart"
+        buttonElement.innerText = "Proceed to Cart";
+        buttonElement.classList.remove("btn-primary");
+        buttonElement.classList.add("btn-success");
+      
+        // Redirect to cart when "Proceed to Cart" is clicked
+        buttonElement.addEventListener("click", () => {
+          window.location.href = "cart.html";
+        });
       }
-    
-      // Update Cart UI
-      function updateCartUI() {
-        const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    
-        document.getElementById("cartCount").innerText = cartCount;
-        document.getElementById("totalPrice").innerText = `$${totalPrice.toFixed(2)}`;
-      }
-    
-      // Handle Add to Cart Button Clicks
-      document.getElementById("productList").addEventListener("click", function(e) {
+      
+      // Handle Add to Cart Button Click
+      function handleAddToCartClick(e) {
         if (e.target.classList.contains("add-to-cart-btn")) {
           const productId = parseInt(e.target.getAttribute("data-id"));
-          const quantity = parseInt(
-            e.target.previousElementSibling.value || 1
-          );
-    
+          const quantityInput = e.target.previousElementSibling;
+          const quantity = parseInt(quantityInput.value || 1);
+      
           if (quantity > 0) {
-            addToCart(productId, quantity);
+            addToCart(productId, quantity, e.target);
           } else {
             alert("Please select a valid quantity.");
           }
         }
-      });
-    
+      }
+      
+      // Load products dynamically
+      function loadProducts() {
+        const productList = document.getElementById("productList");
+        products.forEach((product) => {
+          const card = document.createElement("div");
+          card.classList.add("col");
+          card.innerHTML = `
+                  <div class="card">
+                      <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                      <div class="card-body">
+                          <h5 class="product-name">${product.name}</h5>
+                          <p class="card-text">${product.description}</p>
+                          <p class="price">$${product.price.toFixed(2)}</p>
+                          <div class="d-flex align-items-center">
+                              <input type="number" class="quantity-selector form-control me-2" data-id="${product.id}" min="1" value="1">
+                              <button class="btn btn-primary add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                          </div>
+                      </div>
+                  </div>
+              `;
+          productList.appendChild(card);
+        });
+      }
+      
+      // Update Cart UI
+      function updateCartUI() {
+        const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      
+        document.getElementById("cartCount").innerText = cartCount;
+        document.getElementById("totalPrice").innerText = `$${totalPrice.toFixed(2)}`;
+      }
+      
+      // Event Listeners
+      document.getElementById("productList").addEventListener("click", handleAddToCartClick);
+      
       // Load products on page load
       window.onload = () => {
         loadProducts();
